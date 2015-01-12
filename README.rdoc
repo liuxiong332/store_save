@@ -1,28 +1,20 @@
-== README
+== 服务端设计
+* Person
+  表示入库或者出库操作员，有如下属性
+  * *name*: 用户姓名
+  * *username*: 登陆用户名
+  * *password*: 登陆密码
+* Item
+  Item 表示一个条形码对象，它具有如下属性
+  * *title*: 物品的名字
+* Storage
+  Storage 代表某一个仓库，仓库有如下属性
+  * *title*: 仓库名字
+  * <b>has many Item</b>
+* Inventory Record和Outbound Record
+  表示一个入库或者记录，当有Item入库和出库时，相应的Record对象将会记录起来, 有如下成员
+  * *item*: 入库或者出库的物品
+  * *person*: 操作员
+  * *storage*: 仓库
+  * *date*: 入库或者出库时间
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
