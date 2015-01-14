@@ -3,6 +3,9 @@ class AppController < ApplicationController
     current_user
   end
 
+  def new_user
+  end
+
   private
   def current_user
     user_id = session[:current_user_id]
