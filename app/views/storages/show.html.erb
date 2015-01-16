@@ -1,22 +1,21 @@
+<h1>显示仓库信息</h1>
 <p id="notice"><%= notice %></p>
 
-<h1>物品信息</h1>
 <div class="row">
   <div class="col-sm-1">
     <strong>名字:</strong>
   </div>
   <div class="col-sm-11">
-    <%= @item.title %>
+    <%= @storage.title %>
   </div>
 </div>
 
 <br/>
-
 <div class="row">
   <div class="col-sm-1">
-    <%= link_to '编辑', edit_item_path(@item), class: "btn btn-default" %>
+    <%= link_to '编辑', edit_storage_path(@storage), class: "btn btn-default" %>
   </div>
   <div class="col-sm-1">
-    <%= link_to '返回', items_path, class: "btn btn-default" %>
+    <%= link_to '返回', storages_path, class: "btn btn-default" %>
   </div>
 </div>

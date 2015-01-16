@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Storages</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>名字</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @storages.each do |storage| %>
+      <tr>
+        <td><%= storage.title %></td>
+        <td><%= link_to 'Show', storage, class: "btn btn-default"%></td>
+        <td><%= link_to 'Edit', edit_storage_path(storage), class: "btn btn-default" %></td>
+        <td><%= link_to 'Destroy', storage, method: :delete, data: { confirm: '确定删除?' }, class: "btn btn-default" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to '新建仓库', new_storage_path, class: "btn btn-default" %>

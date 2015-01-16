@@ -1,0 +1,25 @@
+<%= form_for(@storage, html: {class: "form-horizontal"}) do |f| %>
+  <% if @storage.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@storage.errors.count, "error") %> prohibited this storage from being saved:</h2>
+
+      <ul>
+      <% @storage.errors.full_messages.each do |message| %>
+        <li class="text-danger"><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :title, "名字", class: "control-label col-sm-1" %>
+    <div class="col-sm-11">
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-11">
+      <%= f.submit "增加", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
