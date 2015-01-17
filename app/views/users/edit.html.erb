@@ -1,0 +1,12 @@
+<h1>编辑用户资料</h1>
+
+<% content_for :back_btn do %>
+  <div class="col-sm-1">
+    <%= link_to '查看', @user, class: "btn btn-default" %>
+  </div>
+  <div class="col-sm-1">
+    <%= link_to '返回', users_path, class: "btn btn-default" %>
+  </div>
+<% end %>
+
+<%= render 'form' %>

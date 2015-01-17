@@ -1,0 +1,9 @@
+<h1>创建账号</h1>
+
+<% content_for :back_btn do %>
+  <div class="col-sm-1">
+    <%= link_to '返回', users_path, class: "btn btn-default" %>
+  </div>
+<% end %>
+
+<%= render 'form' %>
