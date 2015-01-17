@@ -61,7 +61,28 @@ class StoragesController < ApplicationController
     end
   end
 
+  def add_item
+    item = User.find(params[:item_id]);
+    current_user
+    if @current_user && item
+      item.storage = this
+      HistoricalRecord.create(user: @current_user, storage: this, item: item)
+    end
+  end
+
+  def remove_item
+    item = User.find(params[:item_id]);
+    current_user
+    if @current_user && item
+      item.storage = null
+      HistoricalRecord.create(user: @current_user, storage: this, item: item)
+    end
+  end
+
   private
+    def current_user
+      @current_user ||= session[:current_user_id] && User.find(session[:current_user_id])
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_storage
       @storage = Storage.find(params[:id])

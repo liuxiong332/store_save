@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   resources :users
 
-  resources :storages
+  resources :storages do
+    member do
+      put "items/:item_id", to: "storages#add_item", as: "item_storage"
+      delete "items/:item_id", to: "storages#remove_item"
+    end
+  end
 
   resources :items
 

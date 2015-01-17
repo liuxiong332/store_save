@@ -1,4 +1,30 @@
+<h1>查看用户信息</h1>
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div class="row">
+  <div class="col-sm-1">
+    <strong>名字:</strong>
+  </div>
+  <div class="col-sm-11">
+    <%= @user.name %>
+  </div>
+</div>
+<br/>
+<div class="row">
+  <div class="col-sm-1">
+    <strong>用户名:</strong>
+  </div>
+  <div class="col-sm-11">
+    <%= @user.username %>
+  </div>
+</div>
+
+<br/>
+<div class="row">
+  <div class="col-sm-1">
+    <%= link_to '编辑', edit_user_path(@user), class: "btn btn-default" %>
+  </div>
+  <div class="col-sm-1">
+    <%= link_to '返回', users_path, class: "btn btn-default" %>
+  </div>
+</div>
