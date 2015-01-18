@@ -39,7 +39,7 @@ gem 'rails-i18n', '~> 4.0.0' # For 4.0.x
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
+  gem 'minitest-reporters'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 end

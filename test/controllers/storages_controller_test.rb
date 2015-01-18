@@ -18,7 +18,7 @@ class StoragesControllerTest < ActionController::TestCase
 
   test "should create storage" do
     assert_difference('Storage.count') do
-      post :create, storage: { item_id: @storage.item_id, title: @storage.title }
+      post :create, storage: { title: @storage.title }
     end
 
     assert_redirected_to storage_path(assigns(:storage))
@@ -35,7 +35,7 @@ class StoragesControllerTest < ActionController::TestCase
   end
 
   test "should update storage" do
-    patch :update, id: @storage, storage: { item_id: @storage.item_id, title: @storage.title }
+    patch :update, id: @storage, storage: { title: @storage.title }
     assert_redirected_to storage_path(assigns(:storage))
   end
 
@@ -45,5 +45,23 @@ class StoragesControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to storages_path
+  end
+
+  test 'should add item into storage' do
+    user = users(:one)
+    item = items(:one)
+    assert_difference('HistoricalRecord.count') do
+      put :add_item, {id: @storage, item_id: item}, {current_user_id: user.id}
+    end
+    assert Item.find(item.id).storage
+  end
+
+  test 'should remove item from storage' do
+    user = users(:one)
+    item = items(:one)
+    assert_difference('HistoricalRecord.count') do
+      put :remove_item, {id: @storage, item_id: item}, {current_user_id: user.id}
+    end
+    assert_not Item.find(item.id).storage
   end
 end

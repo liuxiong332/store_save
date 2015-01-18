@@ -62,21 +62,28 @@ class StoragesController < ApplicationController
   end
 
   def add_item
-    item = User.find(params[:item_id]);
+    storage = Storage.find(params[:id])
+    item = Item.find(params[:item_id])
     current_user
     if @current_user && item
-      item.storage = this
-      HistoricalRecord.create(user: @current_user, storage: this, item: item)
+      item.storage = storage
+      item.save
+      $stdout.print 'item :', item.storage
+      HistoricalRecord.create(user: @current_user, storage: storage, item: item)
     end
+    redirect_to action: :index
   end
 
   def remove_item
-    item = User.find(params[:item_id]);
+    storage = Storage.find(params[:id])
+    item = Item.find(params[:item_id]);
     current_user
     if @current_user && item
-      item.storage = null
-      HistoricalRecord.create(user: @current_user, storage: this, item: item)
+      item.storage = nil
+      item.save
+      HistoricalRecord.create(user: @current_user, storage: storage, item: item)
     end
+    redirect_to action: :index
   end
 
   private
@@ -90,6 +97,6 @@ class StoragesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def storage_params
-      params.require(:storage).permit(:title, :item_id)
+      params.require(:storage).permit(:title)
     end
 end
