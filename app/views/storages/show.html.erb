@@ -11,6 +11,51 @@
 </div>
 
 <br/>
+
+<h2>库存情况</h2>
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th class="col-sm-offset-1 col-sm-9">物品名字</th>
+      <th class="col-sm-2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @storage.items.each do |item| %>
+    <tr>
+      <td><%= item.title %> </td>
+      <td>
+        <%= content_tag_for(:button, item, class: "btn btn-primary remove_item_from_storage") do %>
+        出库
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>可入库物品</h2>
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th class="col-sm-offset-1 col-sm-9">物品名字</th>
+      <th class="col-sm-2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% Item.where(storage: nil).find_each do |item| %>
+    <tr>
+      <td> <%= item.title %> </td>
+      <td>
+        <%= content_tag_for(:button, item, class: "btn btn-primary add_item_into_storage") do %>
+        入库
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
 <div class="row">
   <div class="col-sm-1">
     <%= link_to '编辑', edit_storage_path(@storage), class: "btn btn-default" %>

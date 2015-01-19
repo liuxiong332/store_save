@@ -86,6 +86,10 @@ class StoragesController < ApplicationController
     redirect_to action: :index
   end
 
+  def records
+    @historical_records = set_storage.historical_records
+  end
+
   private
     def current_user
       @current_user ||= session[:current_user_id] && User.find(session[:current_user_id])
