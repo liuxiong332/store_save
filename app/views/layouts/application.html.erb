@@ -7,6 +7,33 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-header">
+        <span class="sr-only">导航</span>
+        <% 3.times do %>
+          <span class="icon-bar"></span>
+        <% end %>
+      </button>
+      <a class="navbar-brand" href="#">Storage</a>
+    </div>
+
+    <div class="collpase navbar-collpase" id="navbar-collapse-header">
+      <ul class="nav navbar-nav">
+        <% if @current_user then %>
+          <li><%= content_tag(:a, @current_user.title, href: "#") %></li>
+          <li><a href="#">注销</a></li>
+        <% else %>
+          <li><a href="#">注册</a></li>
+          <li><a href="#">登陆</a></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 <div class="container">
 <%= yield %>
 </div>
