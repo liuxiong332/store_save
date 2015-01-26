@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :users
+  resources :users do
+    member do
+      post "login" => "users#login"
+      post "signup" => "users#create"
+    end
+  end
 
   resources :storages do
     member do

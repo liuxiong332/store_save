@@ -5,7 +5,13 @@ class ApplicationController < ActionController::Base
 
   before_action :current_user
 
+  protected
   def current_user
     @current_user ||= session[:current_user_id] && User.find(session[:current_user_id])
+  end
+
+  def current_user=(user)
+    @current_user = user
+    session[:current_user_id] = user.id
   end
 end

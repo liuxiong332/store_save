@@ -37,6 +37,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def login
+    @user = User.find_by(username: params[:username])
+
+    respond_to do |format|
+      if @user.nil?
+        format.json {render json: @user.errors, status: :not_found}
+      else
+        current_user = @user
+        format.json {render json: :show, status: :ok}
+      end
+    end
+
+  end
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update

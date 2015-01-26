@@ -25,8 +25,14 @@ class UsersControllerTest < ActionController::TestCase
     assert_difference('User.count') do
       post :create, user: user_info
     end
-
     assert_redirected_to user_path(assigns(:user))
+  end
+
+  test "create user using json" do
+    delete :destroy, id: @user
+    assert_difference("User.count") do
+      post :create, {user: user_info}, {"HTTP_ACCEPT" => "application/json"}
+    end
   end
 
   test "should show user" do
