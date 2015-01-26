@@ -30,8 +30,9 @@ class UsersControllerTest < ActionController::TestCase
 
   test "create user using json" do
     delete :destroy, id: @user
+    @request.accept = "application/json"
     assert_difference("User.count") do
-      post :create, {user: user_info}, {"HTTP_ACCEPT" => "application/json"}
+      post :create, {user: user_info}
     end
   end
 
