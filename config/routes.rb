@@ -10,11 +10,13 @@ Rails.application.routes.draw do
     member do
       put "items/:item_id", to: "storages#add_item", as: "item_storage"
       delete "items/:item_id", to: "storages#remove_item"
+      get "items", to: "storages#get_items"
     end
   end
 
   resources :items
 
+  get "historical_records" => "historical_records#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -10,9 +10,11 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
+    @request.accept = "application/json"
     get :index
     assert_response :success
     assert_not_nil assigns(:users)
+    $stdout.puts @response.body
   end
 
   test "should get new" do
@@ -37,8 +39,10 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should show user" do
+    @request.accept = "application/json"
     get :show, id: @user
     assert_response :success
+    $stdout.puts @response.body
   end
 
   test "should get edit" do

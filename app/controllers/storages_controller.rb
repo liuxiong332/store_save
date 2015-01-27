@@ -86,6 +86,11 @@ class StoragesController < ApplicationController
     redirect_to action: :index
   end
 
+  def get_items
+    storage = Storage.find(params[:id])
+    @items = storage.items
+  end
+
   def records
     @historical_records = set_storage.historical_records
   end
