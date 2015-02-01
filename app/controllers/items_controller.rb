@@ -24,10 +24,10 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    @item = Item.new(item_params)
+    @item = Item.check_create(params)
 
     respond_to do |format|
-      if @item.save
+      unless @item.nil?
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render :show, status: :created, location: @item }
       else
@@ -69,6 +69,7 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:title, :storage_id)
+      # params.require(:item).permit(:title, :storage_id)
+      Item.check_params(params)
     end
 end

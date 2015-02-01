@@ -47,6 +47,15 @@ class StoragesControllerTest < ActionController::TestCase
     assert_redirected_to storages_path
   end
 
+  test 'should create and add item into storage' do
+    user = users(:one)
+    item = items(:one)
+    assert_difference('HistoricalRecord.count') do
+      post :create_add_item, {id: @storage, item: {title: item.title}},
+      {current_user_id: user.id}
+    end
+  end
+
   test 'should add item into storage' do
     user = users(:one)
     item = items(:one)
@@ -65,24 +74,36 @@ class StoragesControllerTest < ActionController::TestCase
     assert_not Item.find(item.id).storage
   end
 
-  test 'should get items from storage' do
-    user = users(:one)
-    item1 = items(:one)
-    item2 = items(:two)
+  class StorageInsertItemTest < ActionController::TestCase
+    tests(StoragesController)
 
-    assert_difference('HistoricalRecord.count', 2) do
-      put :add_item, {id: @storage, item_id: item1}, {current_user_id: user.id}
-      put :add_item, {id: @storage, item_id: item2}, {current_user_id: user.id}
+    def setup
+      @storage = storages(:one)
+      user = users(:one)
+      item1 = items(:one)
+      item2 = items(:two)
+      @items = [item1, item2]
+      @item_ids = @items.map {|item| item.id }
+
+      assert_difference('HistoricalRecord.count', 2) do
+        put :add_item, {id: @storage, item_id: item1}, {current_user_id: user.id}
+        put :add_item, {id: @storage, item_id: item2}, {current_user_id: user.id}
+      end
+      assert Item.find(item1.id).storage
+      assert Item.find(item2.id).storage
     end
-    assert Item.find(item1.id).storage
-    assert Item.find(item2.id).storage
 
-    @request.accept = "application/json"
-    get :get_items, id: @storage
-    assert_equal assigns[:items].length, 2
-    body_item = JSON.parse(@response.body)
+    test 'should get items from storage' do
+      @request.accept = "application/json"
+      get :get_items, id: @storage
+      assert_equal assigns[:items].length, 2
+      body_item = JSON.parse(@response.body)
 
-    assert_equal Set.new(body_item.map) {|item| item["id"]},
-      Set.new([item1.id, item2.id])
+      assert_equal Set.new(body_item.map) {|item| item["id"]}, Set.new(@item_ids)
+    end
+
+    test 'should get historical records' do
+      @request.accept = "application/json"
+    end
   end
 end

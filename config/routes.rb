@@ -8,9 +8,11 @@ Rails.application.routes.draw do
 
   resources :storages do
     member do
+      post "items", to: "storages#create_add_item", as: "items_storage"
       put "items/:item_id", to: "storages#add_item", as: "item_storage"
       delete "items/:item_id", to: "storages#remove_item"
       get "items", to: "storages#get_items"
+      get "records", to: "storages#records"
     end
   end
 

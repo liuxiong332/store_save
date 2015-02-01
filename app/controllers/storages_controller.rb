@@ -61,17 +61,12 @@ class StoragesController < ApplicationController
     end
   end
 
+  def create_add_item
+    _add_item Item.check_create(params)
+  end
+
   def add_item
-    storage = Storage.find(params[:id])
-    item = Item.find(params[:item_id])
-    current_user
-    if @current_user && item
-      item.storage = storage
-      item.save
-      $stdout.print 'item :', item.storage
-      HistoricalRecord.create(user: @current_user, storage: storage, item: item)
-    end
-    redirect_to action: :index
+    _add_item Item.find(params[:item_id])
   end
 
   def remove_item
@@ -96,6 +91,19 @@ class StoragesController < ApplicationController
   end
 
   private
+
+    def _add_item(item)
+      storage = Storage.find(params[:id])
+      current_user
+      if @current_user && item
+        item.storage = storage
+        item.save
+        $stdout.print 'item :', item.storage
+        HistoricalRecord.create(user: @current_user, storage: storage, item: item)
+      end
+      redirect_to action: :index
+    end
+
     def current_user
       @current_user ||= session[:current_user_id] && User.find(session[:current_user_id])
     end
